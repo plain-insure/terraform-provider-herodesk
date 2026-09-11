@@ -70,7 +70,7 @@ func (c *Client) read(ctx context.Context, endpoint, id string) (json.RawMessage
 }
 
 func (c *Client) update(ctx context.Context, endpoint, id string, payload json.RawMessage) (json.RawMessage, error) {
-	return c.request(ctx, http.MethodPut, endpoint+"/"+url.PathEscape(id), payload)
+	return c.request(ctx, http.MethodPatch, endpoint+"/"+url.PathEscape(id), payload)
 }
 
 func (c *Client) delete(ctx context.Context, endpoint, id string) error {

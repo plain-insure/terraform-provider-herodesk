@@ -8,6 +8,8 @@ import (
 	"github.com/plain-insure/terraform-provider-herodesk/internal/provider"
 )
 
+var version = "dev"
+
 func main() {
 	plugin.Serve(&plugin.ServeOpts{
 		ProviderFunc: func() *schema.Provider {
