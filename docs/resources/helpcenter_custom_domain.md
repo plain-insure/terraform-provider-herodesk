@@ -31,6 +31,10 @@ resource "herodesk_helpcenter_custom_domain" "support" {
   replaces the resource.
 - `custom_domain` (String) Custom domain served by the Help Center.
 
+### Read-Only
+
+- `cname_domain` (String) CNAME domain derived from the public help center URL.
+
 ## Import
 
 Import using the Help Center ID:

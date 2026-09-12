@@ -31,6 +31,7 @@ func resourceHelpcenterCustomDomain() *schema.Resource {
 				ValidateFunc: validation.StringIsNotEmpty,
 				Description:  "Custom domain served by the Help Center.",
 			},
+			"cname_domain": computedString("CNAME domain derived from the public help center URL."),
 		},
 	}
 }
@@ -69,6 +70,9 @@ func helpcenterCustomDomainRead(ctx context.Context, data *schema.ResourceData, 
 	}
 	if err := data.Set("custom_domain", customDomain); err != nil {
 		return diag.FromErr(fmt.Errorf("set custom_domain: %w", err))
+	}
+	if err := data.Set("cname_domain", cnameDomain(object)); err != nil {
+		return diag.FromErr(fmt.Errorf("set cname_domain: %w", err))
 	}
 	return nil
 }

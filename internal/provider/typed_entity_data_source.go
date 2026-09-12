@@ -126,11 +126,15 @@ func dataSourceHelpcenter() *schema.Resource {
 			"custom_domain":       computedString("Custom domain for the help center."),
 			"default_domain":      computedString("Default Herodesk help center subdomain."),
 			"public_url":          computedString("Public URL of the help center."),
+			"cname_domain":        computedString("CNAME domain derived from the public help center URL."),
 			"root_folder_id":      computedInt("Automatically created root folder ID."),
 			"created_at":          computedString("UTC timestamp when the help center was created."),
 			"updated_at":          computedString("UTC timestamp when the help center was last updated."),
 		},
-		flatten: identityItem,
+		flatten: func(item map[string]interface{}) map[string]interface{} {
+			item["cname_domain"] = cnameDomain(item)
+			return item
+		},
 	})
 }
 

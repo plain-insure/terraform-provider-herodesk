@@ -42,6 +42,7 @@ manage a custom domain independently of the Help Center.
 ### Read-Only
 
 - `created_at` (String) UTC creation timestamp.
+- `cname_domain` (String) CNAME domain derived from the public help center URL.
 - `default_domain` (String) Default Herodesk subdomain.
 - `public_url` (String) Public help center URL.
 - `root_folder_id` (Number) Automatically created root folder ID.

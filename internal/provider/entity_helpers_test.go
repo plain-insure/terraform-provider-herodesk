@@ -22,6 +22,26 @@ func TestExtractID(t *testing.T) {
 	}
 }
 
+func TestCnameDomain(t *testing.T) {
+	tests := []struct {
+		name      string
+		publicURL string
+		want      string
+	}{
+		{name: "host", publicURL: "https://help-e6ec79.herodesk-help.io", want: "help-e6ec79.herodesk-help.io"},
+		{name: "host with port and path", publicURL: "https://help.example.com:8443/articles/1", want: "help.example.com"},
+		{name: "invalid URL", publicURL: "://invalid", want: ""},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := cnameDomain(map[string]interface{}{"public_url": tt.publicURL}); got != tt.want {
+				t.Fatalf("cnameDomain() = %q, want %q", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestResponseObjects(t *testing.T) {
 	tests := []struct {
 		name string

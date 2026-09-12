@@ -33,7 +33,7 @@ func TestHelpcenterCustomDomainResourcePatchesOnlyCustomDomain(t *testing.T) {
 			if len(customDomains) == 0 {
 				t.Fatal("GET called before PATCH")
 			}
-			_, _ = responseWriter.Write([]byte(`{"id":123,"custom_domain":"docs.example.com"}`))
+			_, _ = responseWriter.Write([]byte(`{"id":123,"custom_domain":"docs.example.com","public_url":"https://help-e6ec79.herodesk-help.io"}`))
 		default:
 			t.Errorf("request method = %q, want PATCH or GET", request.Method)
 		}
@@ -52,6 +52,9 @@ func TestHelpcenterCustomDomainResourcePatchesOnlyCustomDomain(t *testing.T) {
 	}
 	if data.Id() != "123" {
 		t.Errorf("resource ID = %q, want %q", data.Id(), "123")
+	}
+	if cnameDomain := data.Get("cname_domain"); cnameDomain != "help-e6ec79.herodesk-help.io" {
+		t.Errorf("resource cname_domain = %q, want %q", cnameDomain, "help-e6ec79.herodesk-help.io")
 	}
 	if diags := resource.DeleteContext(context.Background(), data, client); diags.HasError() {
 		t.Fatalf("delete returned diagnostics: %v", diags)

@@ -167,6 +167,7 @@ func resourceHelpcenter() *schema.Resource {
 		"available_languages": optionalComputedStringList("Additional translated languages."),
 		"default_domain":      computedString("Default Herodesk help center subdomain."),
 		"public_url":          computedString("Public URL of the help center."),
+		"cname_domain":        computedString("CNAME domain derived from the public help center URL."),
 		"root_folder_id":      computedInt("ID of the automatically created root folder."),
 		"created_at":          computedString("UTC timestamp when the help center was created."),
 		"updated_at":          computedString("UTC timestamp when the help center was last updated."),
@@ -177,7 +178,10 @@ func resourceHelpcenter() *schema.Resource {
 		payload: func(data *schema.ResourceData) map[string]interface{} {
 			return schemaPayload(data, "name", "language", "description", "available_languages")
 		},
-		flatten: flattenSchema(resourceSchema),
+		flatten: func(data *schema.ResourceData, object map[string]interface{}) error {
+			object["cname_domain"] = cnameDomain(object)
+			return flattenSchema(resourceSchema)(data, object)
+		},
 	})
 }
 

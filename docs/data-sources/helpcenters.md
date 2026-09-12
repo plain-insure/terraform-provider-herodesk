@@ -31,4 +31,4 @@ data "herodesk_helpcenters" "support" {
 
 - `items` (List of Object) Returned help centers with `id`, `name`, `language`,
   `description`, `available_languages`, `custom_domain`, `default_domain`,
-  `public_url`, `root_folder_id`, `created_at`, and `updated_at`.
+  `public_url`, `cname_domain`, `root_folder_id`, `created_at`, and `updated_at`.
