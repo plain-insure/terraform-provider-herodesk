@@ -13,12 +13,10 @@ Manages a webhook that receives Herodesk events. The API requires `name` and
 
 ```terraform
 resource "herodesk_webhook" "events" {
-  json = jsonencode({
-    name   = "Operations events"
-    url    = "https://example.com/hooks/herodesk"
-    active = true
-    events = ["conversation.created", "conversation.updated"]
-  })
+  name   = "Operations events"
+  url    = "https://example.com/hooks/herodesk"
+  active = true
+  events = ["conversation.created", "conversation.updated"]
 }
 ```
 
@@ -26,9 +24,15 @@ resource "herodesk_webhook" "events" {
 
 ### Required
 
-- `json` (String) JSON request body. Creation supports `name`, `url`, `secret`,
-  `active`, and `events`. `events` replaces the complete subscription list when
-  included in an update.
+- `name` (String) Human-readable webhook name.
+- `url` (String) URL that receives webhook events.
+
+### Optional
+
+- `active` (Boolean) Whether the webhook receives events.
+- `events` (Set of String) Subscribed event names. When changed, replaces the
+  complete event subscription list.
+- `secret` (String, Sensitive) Secret used to sign webhook payloads.
 
   Supported events are `conversation.created`, `conversation.updated`,
   `conversation.deleted`, `message.sent`, `message.received`, `contact.created`,
@@ -38,7 +42,11 @@ resource "herodesk_webhook" "events" {
 
 ### Read-Only
 
-- `id` (String) Herodesk webhook ID.
+- `created_at` (String) UTC creation timestamp.
+- `failed_attempts` (Number) Consecutive failed deliveries.
+- `last_error` (String) Error from the most recent failed delivery.
+- `last_failed_at` (String) UTC timestamp of the most recent failed delivery.
+- `updated_at` (String) UTC update timestamp.
 
 ## Import
 

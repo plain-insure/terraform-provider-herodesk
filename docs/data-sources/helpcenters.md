@@ -24,10 +24,10 @@ data "herodesk_helpcenters" "support" {
 
 ### Optional
 
-- `id` (String) Help center ID to retrieve. Omit to retrieve the collection.
+- `id` (Number) Help center ID to retrieve. Omit to retrieve the collection.
 
 ### Read-Only
 
-- `items` (List of String) One normalized JSON string for each returned help
-  center.
-- `raw_json` (String) Normalized JSON response returned by the API.
+- `items` (List of Object) Returned help centers with `id`, `name`, `language`,
+  `description`, `available_languages`, `custom_domain`, `default_domain`,
+  `public_url`, `root_folder_id`, `created_at`, and `updated_at`.

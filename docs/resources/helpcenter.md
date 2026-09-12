@@ -9,20 +9,18 @@ description: |-
 Manages a Herodesk Help Center. Creating a help center also creates its root
 folder. Deleting it removes its folders, articles, and FAQs.
 
-The `json` payload maps to the Herodesk Help Centers API. `name` and `language`
-are required for creation. `language` is the default language, such as `en-US`;
-`available_languages` lists additional translated languages.
+`name` and `language` are required for creation. `language` is the default
+language, such as `en-US`; `available_languages` lists additional translated
+languages.
 
 ## Example Usage
 
 ```terraform
 resource "herodesk_helpcenter" "support" {
-  json = jsonencode({
-    name                = "Support"
-    language            = "en-US"
-    description         = "Help for our customers."
-    available_languages = ["da-DK"]
-  })
+  name                = "Support"
+  language            = "en-US"
+  description         = "Help for our customers."
+  available_languages = ["da-DK"]
 }
 ```
 
@@ -30,12 +28,22 @@ resource "herodesk_helpcenter" "support" {
 
 ### Required
 
-- `json` (String) JSON request body. Creation supports `name`, `language`,
-  `description`, and `available_languages`. Updates may also set `custom_domain`.
+- `name` (String) Name of the help center.
+- `language` (String) Default language of the help center.
+
+### Optional
+
+- `available_languages` (List of String) Additional translated languages.
+- `custom_domain` (String) Custom domain for the help center.
+- `description` (String) Description shown on the help center front page.
 
 ### Read-Only
 
-- `id` (String) Herodesk help center ID.
+- `created_at` (String) UTC creation timestamp.
+- `default_domain` (String) Default Herodesk subdomain.
+- `public_url` (String) Public help center URL.
+- `root_folder_id` (Number) Automatically created root folder ID.
+- `updated_at` (String) UTC update timestamp.
 
 ## Import
 

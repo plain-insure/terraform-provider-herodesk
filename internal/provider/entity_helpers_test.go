@@ -22,7 +22,7 @@ func TestExtractID(t *testing.T) {
 	}
 }
 
-func TestFlattenItems(t *testing.T) {
+func TestResponseObjects(t *testing.T) {
 	tests := []struct {
 		name string
 		json string
@@ -35,9 +35,12 @@ func TestFlattenItems(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			items := flattenItems([]byte(tt.json))
+			items, err := responseObjects([]byte(tt.json))
+			if err != nil {
+				t.Fatalf("responseObjects() returned an error: %v", err)
+			}
 			if len(items) != tt.want {
-				t.Fatalf("flattenItems() len = %d, want %d", len(items), tt.want)
+				t.Fatalf("responseObjects() len = %d, want %d", len(items), tt.want)
 			}
 		})
 	}

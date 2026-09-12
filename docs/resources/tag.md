@@ -13,10 +13,8 @@ by the Herodesk API.
 
 ```terraform
 resource "herodesk_tag" "priority" {
-  json = jsonencode({
-    name     = "Priority"
-    archived = 0
-  })
+  name     = "Priority"
+  archived = 0
 }
 ```
 
@@ -24,12 +22,17 @@ resource "herodesk_tag" "priority" {
 
 ### Required
 
-- `json` (String) JSON request body. `name` is required for creation.
-  `archived` is optional and uses `0` for active or `1` for archived.
+- `name` (String) Name of the tag.
+
+### Optional
+
+- `archived` (Number) `0` for an active tag or `1` for an archived tag.
 
 ### Read-Only
 
-- `id` (String) Herodesk tag ID.
+- `created_at` (String) UTC creation timestamp.
+- `updated_at` (String) UTC update timestamp.
+- `user_id` (Number) ID of the user who created the tag.
 
 ## Import
 

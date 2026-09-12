@@ -14,12 +14,10 @@ The default team cannot be deleted.
 
 ```terraform
 resource "herodesk_team" "support" {
-  json = jsonencode({
-    name            = "Support"
-    manager_user_id = 42
-    users           = [42, 43]
-    inboxes         = [10, 11]
-  })
+  name            = "Support"
+  manager_user_id = 42
+  users           = [42, 43]
+  inboxes         = [10, 11]
 }
 ```
 
@@ -27,15 +25,21 @@ resource "herodesk_team" "support" {
 
 ### Required
 
-- `json` (String) JSON request body. `name` is required for creation.
-  `manager_user_id` selects an active full user. `users` is an array of member
-  IDs and `inboxes` is an array of standard inbox or Smart Folder IDs. Sending
-  either array during an update replaces the complete assignment list. Set
-  `is_default` to `1` to move the default-team flag to this team.
+- `name` (String) Unique team name.
+
+### Optional
+
+- `inboxes` (Set of Number) Standard inbox and Smart Folder IDs assigned to the
+  team. Updating the value replaces the complete assignment list.
+- `is_default` (Number) Set to `1` to move the default-team flag to this team.
+- `manager_user_id` (Number) Active full user who manages the team.
+- `users` (Set of Number) User IDs assigned to the team. Updating the value
+  replaces the complete member list.
 
 ### Read-Only
 
-- `id` (String) Herodesk team ID.
+- `created_at` (String) UTC creation timestamp.
+- `updated_at` (String) UTC update timestamp.
 
 ## Import
 

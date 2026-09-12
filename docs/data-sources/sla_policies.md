@@ -23,10 +23,11 @@ data "herodesk_sla_policies" "priority" {
 
 ### Optional
 
-- `id` (String) SLA policy ID to retrieve. Omit to retrieve the collection.
+- `id` (Number) SLA policy ID to retrieve. Omit to retrieve the collection.
 
 ### Read-Only
 
-- `items` (List of String) One normalized JSON string for each returned SLA
-  policy.
-- `raw_json` (String) Normalized JSON response returned by the API.
+- `items` (List of Object) Returned policies with `id`, `name`, `enabled`,
+  `sort`, `conditions`, reply and resolution targets, `hours_mode`,
+  `schedule_id`, `warn_percent`, and timestamps. Each condition exposes an
+  `attribute` and a set of string `values`.

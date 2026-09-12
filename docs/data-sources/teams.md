@@ -23,9 +23,9 @@ data "herodesk_teams" "support" {
 
 ### Optional
 
-- `id` (String) Team ID to retrieve. Omit to retrieve the collection.
+- `id` (Number) Team ID to retrieve. Omit to retrieve the collection.
 
 ### Read-Only
 
-- `items` (List of String) One normalized JSON string for each returned team.
-- `raw_json` (String) Normalized JSON response returned by the API.
+- `items` (List of Object) Returned teams with `id`, `name`, `manager_user_id`,
+  `users`, `inboxes`, `is_default`, `created_at`, and `updated_at`.

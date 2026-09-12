@@ -36,34 +36,29 @@ The provider defaults to `https://api.herodesk.io/v1`. Set
 `HERODESK_BASE_URL`, or set the provider's `base_url` argument, when using a
 compatible endpoint.
 
-## JSON object model
+## Managed objects
 
-Herodesk objects are represented by a required `json` argument so the provider
-can support the complete request payload defined by the Herodesk API. The API
-response is stored back in `json` after creation and refresh. Values returned by
-the API, including generated IDs and timestamps, are therefore visible in the
-resource's `json` value.
+Resources expose typed Terraform arguments mapped from the Herodesk API. API
+values such as IDs and timestamps are stored in the resource state after each
+read or change.
 
 For example, this creates a tag:
 
 ```hcl
 resource "herodesk_tag" "priority" {
-	json = jsonencode({
-		name     = "Priority"
-		archived = 0
-	})
+	name     = "Priority"
+	archived = 0
 }
 ```
 
-Collection data sources accept an optional `id`. They return the normalized API
-response in `raw_json` and an `items` list containing one normalized JSON object
-per returned item.
+Collection data sources accept an optional numeric `id`. They return an `items`
+list containing typed objects from the Herodesk API.
 
 ```hcl
 data "herodesk_tags" "all" {}
 
 locals {
-	tags = [for item in data.herodesk_tags.all.items : jsondecode(item)]
+	tag_names = [for tag in data.herodesk_tags.all.items : tag.name]
 }
 ```
 
