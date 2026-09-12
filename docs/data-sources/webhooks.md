@@ -6,7 +6,7 @@ description: |-
 
 # herodesk_webhooks
 
-Retrieves all Herodesk webhooks, or one webhook when `id` is set. API filter
+Retrieves all Herodesk webhooks, or one webhook when `webhook_id` is set. API filter
 parameters such as name, URL, and active state are not exposed by this provider.
 
 ## Example Usage
@@ -15,7 +15,7 @@ parameters such as name, URL, and active state are not exposed by this provider.
 data "herodesk_webhooks" "all" {}
 
 data "herodesk_webhooks" "events" {
-  id = "123"
+  webhook_id = 123
 }
 ```
 
@@ -23,7 +23,7 @@ data "herodesk_webhooks" "events" {
 
 ### Optional
 
-- `id` (Number) Webhook ID to retrieve. Omit to retrieve the collection.
+- `webhook_id` (Number) Webhook ID to retrieve. Omit to retrieve the collection.
 
 ### Read-Only
 

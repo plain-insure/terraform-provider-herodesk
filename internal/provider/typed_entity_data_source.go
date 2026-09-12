@@ -4,23 +4,23 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"time"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
 type dataSourceDefinition struct {
-	endpoint   string
-	itemSchema map[string]*schema.Schema
-	flatten    func(map[string]interface{}) map[string]interface{}
+	endpoint    string
+	lookupField string
+	itemSchema  map[string]*schema.Schema
+	flatten     func(map[string]interface{}) map[string]interface{}
 }
 
 func typedDataSource(definition dataSourceDefinition) *schema.Resource {
 	return &schema.Resource{
 		ReadContext: typedDataSourceRead(definition),
 		Schema: map[string]*schema.Schema{
-			"id": {
+			definition.lookupField: {
 				Type:        schema.TypeInt,
 				Optional:    true,
 				Description: "Optional Herodesk object ID to retrieve.",
@@ -44,7 +44,7 @@ func typedDataSourceRead(definition dataSourceDefinition) schema.ReadContextFunc
 			return diag.FromErr(err)
 		}
 
-		lookupID := data.Get("id").(int)
+		lookupID := data.Get(definition.lookupField).(int)
 		var response json.RawMessage
 		if lookupID != 0 {
 			response, err = client.read(ctx, definition.endpoint, fmt.Sprint(lookupID))
@@ -66,7 +66,7 @@ func typedDataSourceRead(definition dataSourceDefinition) schema.ReadContextFunc
 			return diag.FromErr(err)
 		}
 
-		data.SetId(fmt.Sprintf("%s-%d", definition.endpoint, time.Now().UnixNano()))
+		data.SetId(fmt.Sprintf("%s-%d", definition.endpoint, lookupID))
 		return nil
 	}
 }
@@ -97,7 +97,8 @@ func responseObjects(response json.RawMessage) ([]map[string]interface{}, error)
 
 func dataSourceTag() *schema.Resource {
 	return typedDataSource(dataSourceDefinition{
-		endpoint: "tags",
+		endpoint:    "tags",
+		lookupField: "tag_id",
 		itemSchema: map[string]*schema.Schema{
 			"id":         computedInt("Tag ID."),
 			"name":       computedString("Name of the tag."),
@@ -114,7 +115,8 @@ func dataSourceTag() *schema.Resource {
 
 func dataSourceHelpcenter() *schema.Resource {
 	return typedDataSource(dataSourceDefinition{
-		endpoint: "helpcenters",
+		endpoint:    "helpcenters",
+		lookupField: "helpcenter_id",
 		itemSchema: map[string]*schema.Schema{
 			"id":                  computedInt("Help center ID."),
 			"name":                computedString("Name of the help center."),
@@ -134,7 +136,8 @@ func dataSourceHelpcenter() *schema.Resource {
 
 func dataSourceWebhook() *schema.Resource {
 	return typedDataSource(dataSourceDefinition{
-		endpoint: "webhooks",
+		endpoint:    "webhooks",
+		lookupField: "webhook_id",
 		itemSchema: map[string]*schema.Schema{
 			"id":              computedInt("Webhook ID."),
 			"name":            computedString("Human-readable webhook name."),
@@ -154,7 +157,8 @@ func dataSourceWebhook() *schema.Resource {
 
 func dataSourceTeam() *schema.Resource {
 	return typedDataSource(dataSourceDefinition{
-		endpoint: "teams",
+		endpoint:    "teams",
+		lookupField: "team_id",
 		itemSchema: map[string]*schema.Schema{
 			"id":              computedInt("Team ID."),
 			"name":            computedString("Team name."),
@@ -171,7 +175,8 @@ func dataSourceTeam() *schema.Resource {
 
 func dataSourceSLAPolicy() *schema.Resource {
 	return typedDataSource(dataSourceDefinition{
-		endpoint: "sla-policies",
+		endpoint:    "sla-policies",
+		lookupField: "sla_policy_id",
 		itemSchema: map[string]*schema.Schema{
 			"id":                 computedInt("SLA policy ID."),
 			"name":               computedString("SLA policy name."),

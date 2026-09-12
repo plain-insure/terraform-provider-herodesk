@@ -6,7 +6,7 @@ description: |-
 
 # herodesk_helpcenters
 
-Retrieves all Herodesk Help Centers, or one help center when `id` is set. The
+Retrieves all Herodesk Help Centers, or one help center when `helpcenter_id` is set. The
 Herodesk API can return localized fields; this data source uses the default API
 response because it does not expose API query filters.
 
@@ -16,7 +16,7 @@ response because it does not expose API query filters.
 data "herodesk_helpcenters" "all" {}
 
 data "herodesk_helpcenters" "support" {
-  id = 123
+  helpcenter_id = 123
 }
 ```
 
@@ -24,7 +24,8 @@ data "herodesk_helpcenters" "support" {
 
 ### Optional
 
-- `id` (Number) Help center ID to retrieve. Omit to retrieve the collection.
+- `helpcenter_id` (Number) Help center ID to retrieve. Omit to retrieve the
+  collection.
 
 ### Read-Only
 

@@ -65,14 +65,20 @@ func TestProviderResourcesExposeTypedSchemas(t *testing.T) {
 func TestProviderDataSourcesExposeTypedItems(t *testing.T) {
 	p := Provider(context.Background())
 
-	for _, dataSourceName := range []string{
-		"herodesk_helpcenters",
-		"herodesk_webhooks",
-		"herodesk_tags",
-		"herodesk_teams",
-		"herodesk_sla_policies",
+	for dataSourceName, lookupField := range map[string]string{
+		"herodesk_helpcenters":  "helpcenter_id",
+		"herodesk_webhooks":     "webhook_id",
+		"herodesk_tags":         "tag_id",
+		"herodesk_teams":        "team_id",
+		"herodesk_sla_policies": "sla_policy_id",
 	} {
 		dataSourceSchema := p.DataSourcesMap[dataSourceName].Schema
+		if _, ok := dataSourceSchema["id"]; ok {
+			t.Errorf("data source %q must not expose the reserved id field", dataSourceName)
+		}
+		if field, ok := dataSourceSchema[lookupField]; !ok || field.Type != schema.TypeInt {
+			t.Errorf("data source %q must expose %q as an integer", dataSourceName, lookupField)
+		}
 		if _, ok := dataSourceSchema["raw_json"]; ok {
 			t.Errorf("data source %q must not expose raw_json", dataSourceName)
 		}

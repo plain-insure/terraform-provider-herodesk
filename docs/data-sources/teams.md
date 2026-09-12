@@ -7,7 +7,7 @@ description: |-
 # herodesk_teams
 
 Retrieves all Herodesk teams, including their members and assigned inboxes, or
-one team when `id` is set. API filters are not exposed by this provider.
+one team when `team_id` is set. API filters are not exposed by this provider.
 
 ## Example Usage
 
@@ -15,7 +15,7 @@ one team when `id` is set. API filters are not exposed by this provider.
 data "herodesk_teams" "all" {}
 
 data "herodesk_teams" "support" {
-  id = "123"
+  team_id = 123
 }
 ```
 
@@ -23,7 +23,7 @@ data "herodesk_teams" "support" {
 
 ### Optional
 
-- `id` (Number) Team ID to retrieve. Omit to retrieve the collection.
+- `team_id` (Number) Team ID to retrieve. Omit to retrieve the collection.
 
 ### Read-Only
 

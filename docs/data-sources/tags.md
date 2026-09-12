@@ -6,7 +6,7 @@ description: |-
 
 # herodesk_tags
 
-Retrieves all Herodesk tags, or one tag when `id` is set. API filter parameters
+Retrieves all Herodesk tags, or one tag when `tag_id` is set. API filter parameters
 such as name and archived status are not exposed by this provider.
 
 ## Example Usage
@@ -15,7 +15,7 @@ such as name and archived status are not exposed by this provider.
 data "herodesk_tags" "all" {}
 
 data "herodesk_tags" "priority" {
-  id = "123"
+  tag_id = 123
 }
 ```
 
@@ -23,7 +23,7 @@ data "herodesk_tags" "priority" {
 
 ### Optional
 
-- `id` (Number) Tag ID to retrieve. Omit to retrieve the collection.
+- `tag_id` (Number) Tag ID to retrieve. Omit to retrieve the collection.
 
 ### Read-Only
 

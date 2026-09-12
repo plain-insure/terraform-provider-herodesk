@@ -7,7 +7,8 @@ description: |-
 # herodesk_sla_policies
 
 Retrieves all Herodesk SLA policies in their API evaluation order, or one policy
-when `id` is set. This data source requires a Herodesk plan with SLA support.
+when `sla_policy_id` is set. This data source requires a Herodesk plan with SLA
+support.
 
 ## Example Usage
 
@@ -15,7 +16,7 @@ when `id` is set. This data source requires a Herodesk plan with SLA support.
 data "herodesk_sla_policies" "all" {}
 
 data "herodesk_sla_policies" "priority" {
-  id = "123"
+  sla_policy_id = 123
 }
 ```
 
@@ -23,7 +24,8 @@ data "herodesk_sla_policies" "priority" {
 
 ### Optional
 
-- `id` (Number) SLA policy ID to retrieve. Omit to retrieve the collection.
+- `sla_policy_id` (Number) SLA policy ID to retrieve. Omit to retrieve the
+  collection.
 
 ### Read-Only
 

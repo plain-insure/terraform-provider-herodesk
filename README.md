@@ -51,8 +51,9 @@ resource "herodesk_tag" "priority" {
 }
 ```
 
-Collection data sources accept an optional numeric `id`. They return an `items`
-list containing typed objects from the Herodesk API.
+Collection data sources accept an optional object-specific ID, such as
+`helpcenter_id` or `tag_id`. They return an `items` list containing typed
+objects from the Herodesk API.
 
 ```hcl
 data "herodesk_tags" "all" {}
