@@ -165,7 +165,6 @@ func resourceHelpcenter() *schema.Resource {
 		"language":            requiredString("Default language of the help center."),
 		"description":         optionalComputedString("Description shown on the help center front page."),
 		"available_languages": optionalComputedStringList("Additional translated languages."),
-		"custom_domain":       optionalComputedString("Custom domain the help center is served on."),
 		"default_domain":      computedString("Default Herodesk help center subdomain."),
 		"public_url":          computedString("Public URL of the help center."),
 		"root_folder_id":      computedInt("ID of the automatically created root folder."),
@@ -176,7 +175,7 @@ func resourceHelpcenter() *schema.Resource {
 		endpoint: "helpcenters",
 		schema:   resourceSchema,
 		payload: func(data *schema.ResourceData) map[string]interface{} {
-			return schemaPayload(data, "name", "language", "description", "available_languages", "custom_domain")
+			return schemaPayload(data, "name", "language", "description", "available_languages")
 		},
 		flatten: flattenSchema(resourceSchema),
 	})

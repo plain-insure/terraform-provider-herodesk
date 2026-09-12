@@ -16,7 +16,7 @@ response because it does not expose API query filters.
 data "herodesk_helpcenters" "all" {}
 
 data "herodesk_helpcenters" "support" {
-  id = "123"
+  id = 123
 }
 ```
 

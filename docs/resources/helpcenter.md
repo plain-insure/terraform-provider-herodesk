@@ -34,8 +34,10 @@ resource "herodesk_helpcenter" "support" {
 ### Optional
 
 - `available_languages` (List of String) Additional translated languages.
-- `custom_domain` (String) Custom domain for the help center.
 - `description` (String) Description shown on the help center front page.
+
+Use [`herodesk_helpcenter_custom_domain`](helpcenter_custom_domain.md) to
+manage a custom domain independently of the Help Center.
 
 ### Read-Only
 

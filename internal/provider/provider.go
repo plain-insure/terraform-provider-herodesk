@@ -32,11 +32,12 @@ func Provider(_ context.Context) *schema.Provider {
 			},
 		},
 		ResourcesMap: map[string]*schema.Resource{
-			"herodesk_helpcenter": resourceHelpcenter(),
-			"herodesk_webhook":    resourceWebhook(),
-			"herodesk_tag":        resourceTag(),
-			"herodesk_team":       resourceTeam(),
-			"herodesk_sla_policy": resourceSLAPolicy(),
+			"herodesk_helpcenter":               resourceHelpcenter(),
+			"herodesk_helpcenter_custom_domain": resourceHelpcenterCustomDomain(),
+			"herodesk_webhook":                  resourceWebhook(),
+			"herodesk_tag":                      resourceTag(),
+			"herodesk_team":                     resourceTeam(),
+			"herodesk_sla_policy":               resourceSLAPolicy(),
 		},
 		DataSourcesMap: map[string]*schema.Resource{
 			"herodesk_helpcenters":  dataSourceHelpcenter(),

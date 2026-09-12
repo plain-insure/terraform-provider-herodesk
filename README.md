@@ -65,6 +65,7 @@ locals {
 ## Resources
 
 - [`herodesk_helpcenter`](docs/resources/helpcenter.md): create and manage help centers.
+- [`herodesk_helpcenter_custom_domain`](docs/resources/helpcenter_custom_domain.md): manage the custom domain of an existing help center.
 - [`herodesk_webhook`](docs/resources/webhook.md): create and manage event webhooks.
 - [`herodesk_tag`](docs/resources/tag.md): create and manage conversation tags.
 - [`herodesk_team`](docs/resources/team.md): create and manage teams, members, and inbox assignments.

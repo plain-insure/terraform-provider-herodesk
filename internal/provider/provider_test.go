@@ -13,6 +13,7 @@ func TestProvider_RegistersRequestedResourcesAndDataSources(t *testing.T) {
 
 	resourceKeys := []string{
 		"herodesk_helpcenter",
+		"herodesk_helpcenter_custom_domain",
 		"herodesk_webhook",
 		"herodesk_tag",
 		"herodesk_team",
@@ -42,11 +43,12 @@ func TestProviderResourcesExposeTypedSchemas(t *testing.T) {
 	p := Provider(context.Background())
 
 	for resourceName, expectedFields := range map[string][]string{
-		"herodesk_helpcenter": {"name", "language", "description"},
-		"herodesk_webhook":    {"name", "url", "events"},
-		"herodesk_tag":        {"name", "archived"},
-		"herodesk_team":       {"name", "users", "inboxes"},
-		"herodesk_sla_policy": {"name", "conditions", "hours_mode"},
+		"herodesk_helpcenter":               {"name", "language", "description"},
+		"herodesk_helpcenter_custom_domain": {"helpcenter_id", "custom_domain"},
+		"herodesk_webhook":                  {"name", "url", "events"},
+		"herodesk_tag":                      {"name", "archived"},
+		"herodesk_team":                     {"name", "users", "inboxes"},
+		"herodesk_sla_policy":               {"name", "conditions", "hours_mode"},
 	} {
 		resourceSchema := p.ResourcesMap[resourceName].Schema
 		if _, ok := resourceSchema["json"]; ok {
